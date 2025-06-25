@@ -13,8 +13,8 @@ $experience = get_post('experience');
 $skills = get_post('skills');
 $job = get_post('job');
 
-$prompt = <<<PROMPT
-Generate a professional resume for the following person:
+$prompt = <<<EOD
+Generate a professional resume for the following person based on the target job description: $job
 
 Name: $name
 Email: $email
@@ -25,20 +25,22 @@ $experience
 Skills:
 $skills
 
-Target Job Description:
-$job
-
-Format it in clean text/HTML with clear sections.
-PROMPT;
+Format it in clean HTML with clear sections and professional styling.
+EOD;
 
 $data = [
-    "model" => "gpt-4o",  // Correct, public API-supported model
+    "model" => "gpt-4o",
+    // "model" => "gpt-3.5-turbo",
     "messages" => [
-        ["role" => "system", "content" => "You are a helpful assistant that formats professional resumes."],
+        ["role" => "system", "content" => "You are a professional resume writer. Create a well-formatted, professional resume based on the provided information. Use HTML formatting with proper structure and styling."],
         ["role" => "user", "content" => $prompt]
     ],
-    "temperature" => 0.7
+    "temperature" => 1,
+    "max_tokens" => 1500
 ];
+
+// Debug: Log what we're sending
+error_log("Sending to API: " . json_encode($data, JSON_PRETTY_PRINT));
 
 $curl = curl_init('https://api.openai.com/v1/chat/completions');
 curl_setopt_array($curl, [
@@ -51,12 +53,42 @@ curl_setopt_array($curl, [
 ]);
 
 $response = curl_exec($curl);
+$http_code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
 curl_close($curl);
 
-$result = json_decode($response, true);
-var_dump($result);
+// Debug: Log the raw response
+error_log("HTTP Code: " . $http_code);
+error_log("Raw API Response: " . $response);
 
-// echo $result['choices'][0]['message']['content'];
+$result = json_decode($response, true);
+
+// Check for errors
+if ($http_code !== 200) {
+    echo "<div style='color: red; padding: 20px; border: 1px solid red;'>";
+    echo "<h3>API Error (HTTP $http_code)</h3>";
+    echo "<pre>" . htmlspecialchars($response) . "</pre>";
+    echo "</div>";
+    exit;
+}
+
+if (isset($result['error'])) {
+    echo "<div style='color: red; padding: 20px; border: 1px solid red;'>";
+    echo "<h3>OpenAI API Error</h3>";
+    echo "<p><strong>Type:</strong> " . htmlspecialchars($result['error']['type']) . "</p>";
+    echo "<p><strong>Message:</strong> " . htmlspecialchars($result['error']['message']) . "</p>";
+    echo "</div>";
+    exit;
+}
+
+if (!isset($result['choices'][0]['message']['content'])) {
+    echo "<div style='color: red; padding: 20px; border: 1px solid red;'>";
+    echo "<h3>Unexpected API Response</h3>";
+    echo "<pre>" . htmlspecialchars(json_encode($result, JSON_PRETTY_PRINT)) . "</pre>";
+    echo "</div>";
+    exit;
+}
+
+echo $result['choices'][0]['message']['content'];
 
 
 
