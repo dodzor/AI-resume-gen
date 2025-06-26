@@ -12,9 +12,10 @@ $email = get_post('email');
 $experience = get_post('experience');
 $skills = get_post('skills');
 $job = get_post('job');
+$education = get_post('education') ?? 'Politehnica University of Bucharest';
 
 $prompt = <<<EOD
-Generate a professional resume for the following person based on the target job description: $job
+Generate a professional resume that includes a Summary, Work Experience, Skills, and Education for the following person based on the target job description: $job
 
 Name: $name
 Email: $email
@@ -24,6 +25,9 @@ $experience
 
 Skills:
 $skills
+
+Education:
+$education
 
 Format it in clean HTML with clear sections and professional styling.
 EOD;
@@ -88,7 +92,44 @@ if (!isset($result['choices'][0]['message']['content'])) {
     exit;
 }
 
-echo $result['choices'][0]['message']['content'];
+// Get the content and clean up markdown code blocks
+$content = $result['choices'][0]['message']['content'];
+
+// Remove markdown code block markers
+$content = preg_replace('/^```html\s*/i', '', $content);
+$content = preg_replace('/^```\s*/i', '', $content); // Also handle plain ```
+$content = preg_replace('/\s*```$/', '', $content);
+
+// Remove common AI response endings/notes
+$content = preg_replace('/\n\s*Note:.*$/is', '', $content);
+$content = preg_replace('/\n\s*Please note:.*$/is', '', $content);
+$content = preg_replace('/\n\s*\*\*Note:.*$/is', '', $content);
+$content = preg_replace('/\n\s*---.*$/is', '', $content);
+$content = preg_replace('/\n\s*This resume.*$/is', '', $content);
+$content = preg_replace('/\n\s*Feel free.*$/is', '', $content);
+$content = preg_replace('/\n\s*Let me know.*$/is', '', $content);
+$content = preg_replace('/\n\s*This resume is structured/i', '', $content);
+
+
+$content = trim($content);
+
+// OPTION 1: Strip all HTML tags and return plain text
+// $content = strip_tags($content);
+// $content = html_entity_decode($content, ENT_QUOTES, 'UTF-8');
+
+// OPTION 2: Convert to plain text with line breaks preserved
+// $content = strip_tags($content);
+// $content = preg_replace('/\n\s*\n/', "\n\n", $content); // Clean up multiple line breaks
+// $content = nl2br(htmlspecialchars($content)); // Convert to HTML with <br> tags
+
+// OPTION 3: Custom text processing with replacements
+// $content = strip_tags($content);
+// $content = str_replace(['•', '◦', '▪'], '-', $content); // Replace bullet points
+// $content = preg_replace('/([A-Z][A-Z\s]+):/', '<strong>$1:</strong>', $content); // Bold section headers
+// $content = preg_replace('/\n\s*-/', '<br>•', $content); // Convert dashes to bullet points
+// $content = nl2br($content);
+
+echo $content;
 
 
 
