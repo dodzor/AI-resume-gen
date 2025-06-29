@@ -1,0 +1,79 @@
+Senior Fullstack Developer with 10+ years of experience building robust, scalable web
+applications using PHP, JavaScript (ES6+) and MySQL. Proven ability to take full ownership
+of projects and optimize performance across the full stack. Passionate about clean
+• Designed scalable, multilingual database architectures, API layer and CMS for a global
+video streaming service.
+• Delivered a custom bidding platform for company-owned vehicle auctions, enabling realtime
+user interactions for internal auctions.
+• Developed RESTful APIs and diagnostic tools with a focus on speed, security, and
+infrastructure resilience.
+• Integrated analytics pipelines, exporting large-scale data to drive product decisions.
+
+Work Experience:
+Digi Communications
+SENIOR FULL-STACK DEVELOPER
+09/2016 - Present
+Bucharest
+ https://digi.ro
+• Designed scalable, multilingual database architectures, API layer and CMS for a global
+video streaming service.
+• Delivered a custom bidding platform for company-owned vehicle auctions, enabling realtime
+user interactions for internal auctions.
+• Developed RESTful APIs and diagnostic tools with a focus on speed, security, and
+infrastructure resilience.
+• Integrated analytics pipelines, exporting large-scale data to drive product decisions.
+
+Languages
+PHP, javascript(ES6+), HTML, CSS
+Frontend
+React, Tailwind, Redux
+Backend
+Node.js, Express, Symfony, Laminas
+Data & Infra
+MongoDB, Redis, Docker, Linux, Nginx, MySQL
+Practices
+Full-stack architecture, testing, clean modular code
+
+Target Job Description:
+BASIC QUALIFICATIONS
+- 3+ years of non-internship professional software development experience
+- 2+ years of non-internship design or architecture (design patterns, reliability and scaling) of
+new and existing systems experience
+- Experience programming with at least one software programming language
+PREFERRED QUALIFICATIONS
+- Bachelor's degree in computer science or equivalent
+- Experience with full software development life cycle, including coding standards, code
+reviews, source control management, build processes, testing, and operations
+
+Result:
+Raul Ghergic
+Email: cristea.rauldorian@gmail.com
+
+Work Experience
+Digi Communications
+Senior Full-Stack Developer
+
+09/2016 - Present | Bucharest
+
+https://digi.ro
+
+Designed scalable, multilingual database architectures, API layer and CMS for a global video streaming service.
+Delivered a custom bidding platform for company-owned vehicle auctions, enabling real-time user interactions for internal auctions.
+Developed RESTful APIs and diagnostic tools with a focus on speed, security, and infrastructure resilience.
+Integrated analytics pipelines, exporting large-scale data to drive product decisions.
+
+Skills
+Languages: PHP, JavaScript (ES6+), HTML, CSS
+Frontend: React, Tailwind, Redux
+Backend: Node.js, Express, Symfony, Laminas
+Data & Infra: MongoDB, Redis, Docker, Linux, Nginx, MySQL
+Practices: Full-stack architecture, testing, clean modular code
+
+Target Job Description
+Basic Qualifications
+3+ years of non-internship professional software development experience
+2+ years of non-internship design or architecture (design patterns, reliability and scaling) of new and existing systems experience
+Experience programming with at least one software programming language
+Preferred Qualifications
+Bachelor's degree in computer science or equivalent
+Experience with full software development life cycle, including coding standards, code reviews, source control management, build processes, testing, and operations
