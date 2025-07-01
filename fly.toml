@@ -1,9 +1,9 @@
-# fly.toml app configuration file for AI Resume Generator Backend API
+# fly.toml app configuration file for Combined AI Resume Generator
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = 'ai-resume-gen-backend'
+app = 'ai-resume-gen'
 primary_region = 'ams'
 
 [build]
@@ -25,10 +25,10 @@ primary_region = 'ams'
   cpus = 1
   memory_mb = 1024
 
-# Health check for the API
+# Health check
 [http_service.checks]
   grace_interval = '10s'
   interval = '30s'
   method = 'GET'
   timeout = '5s'
-  path = '/api/health' 
+  path = '/health.php' 
