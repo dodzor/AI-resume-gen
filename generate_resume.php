@@ -4,8 +4,36 @@ function get_post($key) {
     return htmlspecialchars($_POST[$key] ?? '');
 }
 
-$api_key = parse_ini_file('.env');
-// echo "API Key: " . $api_key['OPENAI_API_KEY'];
+// Get API key from environment variables (production) or .env file (development)
+function get_api_key() {
+    // First, try to get from environment variables (Fly.io secrets)
+    $api_key = getenv('OPENAI_API_KEY');
+    if ($api_key) {
+        return $api_key;
+    }
+    
+    // Fallback: try to read from .env file (local development)
+    if (file_exists('.env')) {
+        $env_data = parse_ini_file('.env');
+        if (isset($env_data['OPENAI_API_KEY'])) {
+            return $env_data['OPENAI_API_KEY'];
+        }
+    }
+    
+    // No API key found
+    return null;
+}
+
+$api_key = get_api_key();
+
+// Check if API key is available
+if (!$api_key) {
+    echo "<div style='color: red; padding: 20px; border: 1px solid red;'>";
+    echo "<h3>Configuration Error</h3>";
+    echo "<p>OpenAI API key not found. Please set the OPENAI_API_KEY environment variable or create a .env file.</p>";
+    echo "</div>";
+    exit;
+}
 
 $name = get_post('name');
 $email = get_post('email');
@@ -51,7 +79,7 @@ curl_setopt_array($curl, [
     CURLOPT_RETURNTRANSFER => true,
     CURLOPT_HTTPHEADER => [
         "Content-Type: application/json",
-        "Authorization: Bearer " . $api_key['OPENAI_API_KEY']
+        "Authorization: Bearer " . $api_key
     ],
     CURLOPT_POSTFIELDS => json_encode($data)
 ]);

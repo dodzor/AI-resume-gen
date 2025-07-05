@@ -1,1 +1,22 @@
 fly.toml
+
+# Don't copy environment files into Docker image
+.env
+.env.local
+.env.production
+
+# Don't copy Git files
+.git
+.gitignore
+.gitattributes
+
+# Don't copy development files
+node_modules/
+npm-debug.log*
+*.log
+
+# Don't copy temporary files
+*.tmp
+*.temp
+.DS_Store
+Thumbs.db
